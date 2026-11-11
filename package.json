@@ -1,0 +1,65 @@
+{
+  "name": "dsh-modern-web-guidance",
+  "version": "0.1.1",
+  "description": "Modern Web Guidance (GoogleChrome/modern-web-guidance) as native DeepSeek Harness tools: mwg_search / mwg_retrieve / mwg_list / mwg_legacy_scan over 208 Baseline-aware web platform guides.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./bridge": "./lib/bridge.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/",
+    "skill/",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "scripts": {
+    "test": "node test/verify.mjs",
+    "test:json": "node test/verify.mjs --json"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "modern-web-guidance",
+    "web-platform",
+    "baseline",
+    "html",
+    "css",
+    "accessibility",
+    "agent-skills"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aloento/dsh-modern-web-guidance.git"
+  },
+  "homepage": "https://github.com/Aloento/dsh-modern-web-guidance#readme",
+  "bugs": {
+    "url": "https://github.com/Aloento/dsh-modern-web-guidance/issues"
+  },
+  "dependencies": {
+    "modern-web-guidance": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": "^0.2.0-rc.1"
+  },
+  "devDependencies": {
+    "@deepseek-ai/dsh-tools": "0.2.2-rc.1"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "cordis.patch.yml"
+    },
+    "engines": {
+      "dsh": ">=0.2.1-rc.2 <0.4.0-0"
+    }
+  }
+}

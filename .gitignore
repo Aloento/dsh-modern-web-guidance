@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# installer staging inside a DSH profile (never in this repo, kept for safety)
+.mwg/
+*.tgz
+
+# local profile backups
+*.bak-mwg
+
+# os / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# local env
+.env
+.env.*

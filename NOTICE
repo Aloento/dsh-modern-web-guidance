@@ -1,0 +1,41 @@
+dsh-modern-web-guidance
+Copyright (c) 2026 Aloento
+
+This project is an independent integration. It is not affiliated with,
+sponsored by, or endorsed by Google.
+
+--------------------------------------------------------------------------------
+Upstream work
+--------------------------------------------------------------------------------
+
+Modern Web Guidance
+  https://github.com/GoogleChrome/modern-web-guidance
+  https://developer.chrome.com/docs/modern-web-guidance
+  Stewarded by the Google Chrome, Microsoft Edge, Mozilla Firefox and MDN
+  teams, alongside the web development community.
+
+  - Software code: Apache License 2.0
+  - Guide content under `guides/`: Creative Commons Attribution 4.0
+    International (CC-BY 4.0)
+
+  Portions of the upstream documentation are derived from MDN Web Docs by
+  Mozilla Contributors, and from W3C, WHATWG and IETF specifications.
+
+This repository does not vendor the corpus. `modern-web-guidance` is declared as
+a normal npm dependency and installed from the public npm registry, so the guide
+content stays under the upstream license and is updated by upgrading that
+dependency.
+
+`skill/modern-web-guidance/SKILL.md` is an adapted copy of the upstream skill
+(`skills/modern-web-guidance/SKILL.md`), modified for DeepSeek Harness
+conventions: Windows CLI invocation, an offline CLI path, model-facing tool
+names for the `mwg_*` tools, and a condensed Chinese-language workflow. The
+adapted text remains subject to the upstream licenses above.
+
+--------------------------------------------------------------------------------
+Third-party names
+--------------------------------------------------------------------------------
+
+DeepSeek Harness is a product of DeepSeek. Chrome, Edge, Firefox, MDN and
+Google are trademarks of their respective owners. All trademarks are used only
+to describe interoperability.

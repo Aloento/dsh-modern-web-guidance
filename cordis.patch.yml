@@ -1,0 +1,15 @@
+# dsh-modern-web-guidance — insert the tool plugin into the profile.
+# config.cliPath  : override the bundled CLI entry (defaults to the resolved
+#                   `modern-web-guidance` dependency; env MWG_CLI also works).
+# config.cwd      : working directory for the CLI (defaults to the session cwd;
+#                   it is where `.mwgrc` is looked up).
+# config.telemetry: false (default) injects DISABLE_TELEMETRY=1 into the CLI.
+# config.injectPrompt: true (default) adds the mwg_* routing section to the
+#                   system prompt so the model knows to search before coding.
+- insert:
+    - id: modern-web-guidance
+      name: dsh-modern-web-guidance
+      config:
+        enabled: true
+        injectPrompt: true
+        telemetry: false

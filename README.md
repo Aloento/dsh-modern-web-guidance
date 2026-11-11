@@ -93,7 +93,7 @@ npx modern-web-guidance@latest install
 | `mwg_search` | `query` (2–5 words) | `[{ id, description }]`, ranked |
 | `mwg_retrieve` | `ids: string[]` | verbatim guide markdown for each id, plus `missing` |
 | `mwg_list` | — | every id with a one-line description |
-| `mwg_legacy_scan` | `path?` | legacy-pattern findings as JSON from `legacy-scan --json` |
+| `mwg_legacy_scan` | `path?`, `full?` | findings grouped by guide, capped at 15; `full: true` adds the raw report |
 
 ### Query discipline
 
@@ -122,7 +122,7 @@ The search index is small and intent-shaped; queries that read like prompts do b
 
 ### Codebase-wide audits
 
-Only for open-ended modernization, never for "fix this one component":
+Only for open-ended modernization, never for "fix this one component". **Always pass the project root** — the tool refuses to scan the home directory by accident:
 
 ```sh
 npx -y modern-web-guidance@latest legacy-scan . --json

@@ -5,6 +5,7 @@
  *   node test/verify.mjs            # run all checks
  *   node test/verify.mjs --json     # machine-readable summary
  */
+import os from 'node:os'
 import * as plugin from '../lib/index.js'
 
 const jsonOut = process.argv.includes('--json')
@@ -48,10 +49,10 @@ check('plugin injects tools', Array.isArray(plugin.inject) && plugin.inject.incl
 check('registers 4 tools', registered.size === 4, [...registered.keys()].join(', '))
 check('injects one prompt section', sections.length === 1 && sections[0].name === 'modern-web-guidance', sections[0]?.name)
 
-const exec = async (name, args) => {
+const exec = async (name, args, runContext = { signal: undefined, agent: { meta: { cwd: process.cwd() } } }) => {
   const definition = registered.get(name)
   if (!definition) throw new Error(`tool ${name} is not registered`)
-  const value = await definition.execute(args, { signal: undefined })
+  const value = await definition.execute(args, runContext)
   const content = definition.output.render(args, value)
   const text = content.map((block) => block.text ?? '').join('\n')
   return { value, text }
@@ -113,11 +114,29 @@ try {
 }
 
 try {
-  const { value, text } = await exec('mwg_legacy_scan', { path: '.' })
-  report.scan = { target: value.target, totalFindings: value.totalFindings, chars: text.length }
-  check('mwg_legacy_scan returns a JSON report', typeof value.report === 'string' && value.report.trim().startsWith('{'), `${value.totalFindings} findings`)
+  const { value, text } = await exec('mwg_legacy_scan', { path: 'test/fixtures/legacy' })
+  report.scan = { target: value.target, totalFindings: value.totalFindings, guides: value.guides.length, chars: text.length }
+  check(
+    'mwg_legacy_scan summarises findings',
+    value.totalFindings > 0 && value.guides.length > 0 && value.findings.length > 0 && value.report === undefined && text.length < 4000,
+    `${value.totalFindings} findings, ${text.length} chars`,
+  )
 } catch (error) {
-  check('mwg_legacy_scan returns a JSON report', false, error.message)
+  check('mwg_legacy_scan summarises findings', false, error.message)
+}
+
+try {
+  const { value } = await exec('mwg_legacy_scan', { path: 'test/fixtures/legacy', full: true })
+  check('mwg_legacy_scan full:true carries the raw report', typeof value.report === 'string' && value.report.startsWith('{'), `${value.report?.length ?? 0} chars`)
+} catch (error) {
+  check('mwg_legacy_scan full:true carries the raw report', false, error.message)
+}
+
+try {
+  await exec('mwg_legacy_scan', {}, { signal: undefined, agent: { meta: { cwd: os.homedir() } } })
+  check('mwg_legacy_scan refuses to scan the home directory by default', false, 'no error thrown')
+} catch (error) {
+  check('mwg_legacy_scan refuses to scan the home directory by default', /explicit path/.test(error.message), error.message.slice(0, 90))
 }
 
 // --- configuration surface -------------------------------------------------

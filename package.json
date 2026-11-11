@@ -1,6 +1,6 @@
 {
   "name": "dsh-modern-web-guidance",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Modern Web Guidance (GoogleChrome/modern-web-guidance) as native DeepSeek Harness tools: mwg_search / mwg_retrieve / mwg_list / mwg_legacy_scan over 208 Baseline-aware web platform guides.",
   "type": "module",
   "main": "lib/index.js",

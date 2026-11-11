@@ -1,0 +1,13 @@
+#text_container::-webkit-scrollbar {
+  width: 6px;
+}
+#text_container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+body {
+  background-color: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  body { background-color: #1c1c1c; color: #eee; }
+}

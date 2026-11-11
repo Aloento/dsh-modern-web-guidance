@@ -93,7 +93,7 @@ npx modern-web-guidance@latest install
 | `mwg_search` | `query`（2–5 词） | 排序后的 `[{ id, description }]` |
 | `mwg_retrieve` | `ids: string[]` | 每个 id 的指南全文，外加 `missing` |
 | `mwg_list` | — | 全量 id + 一句话描述 |
-| `mwg_legacy_scan` | `path?` | `legacy-scan --json` 的原始结果 |
+| `mwg_legacy_scan` | `path?`、`full?` | 按指南分组的 findings，默认最多 15 条；`full: true` 附原始报告 |
 
 ### 查询纪律
 
@@ -122,7 +122,7 @@ npx modern-web-guidance@latest install
 
 ### 全库审计
 
-只用于开放式现代化改造，不要用来「修这一个组件」：
+只用于开放式现代化改造，不要用来「修这一个组件」。**必须传项目根路径**——工具会拒绝误扫整个家目录：
 
 ```sh
 npx -y modern-web-guidance@latest legacy-scan . --json
@@ -191,6 +191,8 @@ modern-web-guidance（npm 包，17 MB，自包含）
 | `modern-web-guidance CLI not found` | 在 profile 里 `pnpm add modern-web-guidance`，或设 `cliPath` / `MWG_CLI` |
 | `mwg_retrieve` 返回 `missing` | id 不存在——重新 `mwg_search`，不要凭记忆编 id |
 | `mwg_search` 返回空 | 换成具体 UI 名词（`dialog`、`popover`、`table`、`form`）再试一次 |
+| `mwg_legacy_scan needs an explicit path` | 会话工作区就是家目录；请传项目根，例如 `path: "C:/code/my-app"` |
+| `mwg_legacy_scan` 报 `exited N after printing this report` | 扫描途中遇到不可读路径，结果不完整；换更小的目录重跑 |
 | 只有技能没有工具 | 这是方式 B 的正常状态，技能通过 bash 调 CLI |
 | 安装时 `pnpm` 报错 | Windows 下安装器已绕开 `pnpm.cmd`；pnpm 不在 PATH 时用 `PNPM_JS` 指定 |
 
